@@ -1,21 +1,36 @@
 <template>
-  <!-- <h1>My First Vue App!</h1> -->
   <h1>{{ title }}</h1>
+  <div v-if="showModal">
+    <modal :header="header" :text="text" theme="sale" @close="toggleModal" />
+  </div>
+  <button @click="toggleModal" v-if="showModal === false">Open Modal</button>
 </template>
 
 <script>
+import Modal from "./components/Modal.vue";
 export default {
-  name: 'App',
+  name: "App",
+  components: {
+    Modal,
+  },
   data() {
     return {
-      title: 'My First Vue App!'
-    }
-  }
-}
+      header: "Sign up for the giveaway",
+      text: "Grab your copy of Vue today!",
+      showModal: false,
+    };
+  },
+  methods: {
+    toggleModal() {
+      this.showModal = !this.showModal;
+    },
+  },
+};
 </script>
 
-<style>
-#app {
+<style scoped>
+#app,
+#modals {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -27,5 +42,14 @@ h1 {
   border-bottom: 1px solid #ddd;
   display: inline-block;
   padding-bottom: 10px;
+}
+button {
+  background: #bbb;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  margin: 10px;
+  font-size: 16px;
+  color: #333;
 }
 </style>
